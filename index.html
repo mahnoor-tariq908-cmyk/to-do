@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ToDo App</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class"
+        };
+    </script>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body
+    class="
+        min-h-screen
+        bg-gradient-to-br
+        from-purple-900
+        via-violet-900
+        to-fuchsia-900
+        text-white
+
+        dark:bg-gradient-to-br
+        dark:from-purple-900
+        dark:via-violet-900
+        dark:to-fuchsia-900
+
+        transition-all
+        duration-300
+    "
+>
+
+    <!-- HEADER -->
+
+    <header class="px-5 sm:px-8 py-6">
+
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+
+            <div class="flex items-center gap-3">
+
+                <div
+                    class="
+                        w-10 h-10
+                        rounded-full
+                        bg-white
+                        text-violet-600
+                        flex items-center justify-center
+                        text-xl
+                    "
+                >
+                    <i class="fa-solid fa-check"></i>
+                </div>
+
+                <h1 class="text-2xl sm:text-3xl font-bold">
+                    ToDo
+                    <span class="text-pink-300">App</span>
+                </h1>
+
+            </div>
+
+
+            <!-- THEME -->
+
+            <button
+                id="themeBtn"
+                class="
+                    w-11 h-11
+                    rounded-full
+
+                    bg-white/10
+                    border
+                    border-white/30
+
+                    hover:bg-white/20
+
+                    flex
+                    items-center
+                    justify-center
+
+                    transition
+                "
+            >
+
+                <i
+                    id="themeIcon"
+                    class="fa-solid fa-sun text-yellow-300"
+                ></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- MAIN -->
+
+    <main class="max-w-3xl mx-auto px-4 pb-10">
+
+
+        <!-- PROGRESS CARD -->
+
+        <section
+            class="
+                rounded-2xl
+                p-5 sm:p-7
+
+                bg-white/10
+                border
+                border-white/25
+
+                backdrop-blur-sm
+            "
+        >
+
+            <div
+                class="
+                    flex
+                    flex-col
+                    sm:flex-row
+                    items-center
+                    gap-6
+                "
+            >
+
+                <!-- Icon -->
+
+                <div
+                    class="
+                        hidden sm:flex
+
+                        w-24 h-24
+                        rounded-2xl
+
+                        bg-white/10
+                        border
+                        border-white/20
+
+                        items-center
+                        justify-center
+
+                        text-5xl
+                    "
+                >
+                    📝
+                </div>
+
+
+                <!-- Content -->
+
+                <div class="flex-1 w-full">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <h2 class="text-2xl sm:text-3xl font-bold">
+                                ToDo App
+                            </h2>
+
+                            <p class="mt-1 text-purple-200">
+                                Keep it up! 🚀
+                            </p>
+
+                        </div>
+
+
+                        <!-- CIRCLE -->
+
+                        <div
+                            id="progressCircle"
+                            class="
+                                w-20 h-20
+                                rounded-full
+                                p-2
+
+                                shrink-0
+
+                                bg-[conic-gradient(#f472b6_0deg,#8b5cf6_0deg,#ffffff30_0deg)]
+                            "
+                        >
+
+                            <div
+                                class="
+                                    w-full h-full
+                                    rounded-full
+
+                                    bg-purple-900
+
+                                    flex
+                                    items-center
+                                    justify-center
+                                "
+                            >
+
+                                <span
+                                    id="percent"
+                                    class="font-bold"
+                                >
+                                    0%
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PROGRESS BAR -->
+
+                    <div class="mt-5">
+
+                        <div
+                            class="
+                                h-3
+                                rounded-full
+
+                                bg-white/20
+
+                                border
+                                border-white/20
+
+                                overflow-hidden
+                            "
+                        >
+
+                            <div
+                                id="progressBar"
+                                class="
+                                    h-full
+                                    w-0
+
+                                    rounded-full
+
+                                    bg-gradient-to-r
+                                    from-pink-400
+                                    to-violet-400
+
+                                    transition-all
+                                    duration-500
+                                "
+                            ></div>
+
+                        </div>
+
+
+                        <p
+                            id="progressText"
+                            class="
+                                mt-2
+                                text-sm
+                                text-purple-200
+                            "
+                        >
+                            0% completed
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ADD TASK -->
+
+        <section
+            class="
+                mt-5
+                p-3
+
+                rounded-2xl
+
+                bg-white/10
+                border
+                border-white/25
+
+                backdrop-blur-sm
+            "
+        >
+
+            <div class="flex gap-3">
+
+                <div class="relative flex-1">
+
+                    <i
+                        class="
+                            fa-regular
+                            fa-note-sticky
+
+                            absolute
+                            left-4
+                            top-1/2
+                            -translate-y-1/2
+
+                            text-purple-200
+                        "
+                    ></i>
+
+
+                    <input
+                        id="taskInput"
+                        type="text"
+                        placeholder="Write your task..."
+
+                        class="
+                            w-full
+
+                            pl-11
+                            pr-4
+                            py-4
+
+                            rounded-xl
+
+                            bg-white/10
+
+                            border
+                            border-white/25
+
+                            text-white
+
+                            placeholder-purple-200
+
+                            outline-none
+
+                            focus:border-pink-300
+
+                            transition
+                        "
+                    >
+
+                </div>
+
+
+                <button
+                    id="addBtn"
+
+                    class="
+                        w-14
+                        rounded-xl
+
+                        bg-gradient-to-r
+                        from-pink-400
+                        to-violet-400
+
+                        text-white
+                        text-xl
+
+                        hover:opacity-90
+
+                        transition
+                    "
+                >
+
+                    <i class="fa-solid fa-plus"></i>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- SEARCH -->
+
+        <section
+            class="
+                mt-4
+                p-3
+
+                rounded-2xl
+
+                bg-white/10
+                border
+                border-white/25
+            "
+        >
+
+            <div class="relative">
+
+                <i
+                    class="
+                        fa-solid
+                        fa-magnifying-glass
+
+                        absolute
+                        left-4
+                        top-1/2
+                        -translate-y-1/2
+
+                        text-purple-200
+                    "
+                ></i>
+
+
+                <input
+                    id="searchInput"
+
+                    type="text"
+
+                    placeholder="Search tasks..."
+
+                    class="
+                        w-full
+
+                        pl-11
+                        pr-4
+                        py-3
+
+                        rounded-xl
+
+                        bg-white/10
+
+                        border
+                        border-white/25
+
+                        text-white
+
+                        placeholder-purple-200
+
+                        outline-none
+
+                        focus:border-pink-300
+                    "
+                >
+
+            </div>
+
+        </section>
+
+
+
+        <!-- TASKS -->
+
+        <section
+            id="taskList"
+            class="mt-4 space-y-3"
+        ></section>
+
+
+        <!-- EMPTY -->
+
+        <div
+            id="emptyState"
+
+            class="
+                mt-4
+
+                p-10
+
+                rounded-2xl
+
+                bg-white
+
+                border
+                border-purple-200
+
+                text-center
+
+                text-purple-900
+            "
+        >
+
+            <div class="text-4xl mb-3">
+                📝
+            </div>
+
+            <h3 class="text-xl font-bold">
+                No tasks yet ✨
+            </h3>
+
+            <p class="mt-2 text-purple-500">
+                Add your first task and get started!
+            </p>
+
+        </div>
+
+
+    </main>
+
+
+    <script src="src/main.js"></script>
+
+</body>
+
+</html>
