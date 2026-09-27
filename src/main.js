@@ -1,4 +1,6 @@
 import "./style.css";
+
+
 // ===============================
 // GET ELEMENTS
 // ===============================
@@ -54,15 +56,23 @@ function addTask() {
     const text = taskInput.value.trim();
 
     if (text === "") {
+
         alert("Please write a task first.");
+
         return;
     }
 
+
     tasks.push({
+
         id: Date.now(),
+
         text: text,
+
         completed: false
+
     });
+
 
     saveTasks();
 
@@ -71,6 +81,7 @@ function addTask() {
     renderTasks();
 
     taskInput.focus();
+
 }
 
 
@@ -84,17 +95,25 @@ function deleteTask(id) {
         "Do you want to delete this task?"
     );
 
+
     if (!confirmDelete) {
+
         return;
+
     }
 
+
     tasks = tasks.filter(function(task) {
+
         return task.id !== id;
+
     });
+
 
     saveTasks();
 
     renderTasks();
+
 }
 
 
@@ -105,34 +124,50 @@ function deleteTask(id) {
 function editTask(id) {
 
     const task = tasks.find(function(task) {
+
         return task.id === id;
+
     });
 
+
     if (!task) {
+
         return;
+
     }
+
 
     const newText = prompt(
         "Update your task:",
         task.text
     );
 
+
     if (newText === null) {
+
         return;
+
     }
+
 
     const updatedText = newText.trim();
 
+
     if (updatedText === "") {
+
         alert("Task cannot be empty.");
+
         return;
+
     }
+
 
     task.text = updatedText;
 
     saveTasks();
 
     renderTasks();
+
 }
 
 
@@ -143,18 +178,25 @@ function editTask(id) {
 function completeTask(id) {
 
     const task = tasks.find(function(task) {
+
         return task.id === id;
+
     });
 
+
     if (!task) {
+
         return;
+
     }
+
 
     task.completed = !task.completed;
 
     saveTasks();
 
     renderTasks();
+
 }
 
 
@@ -166,22 +208,33 @@ function createTask(task) {
 
     const box = document.createElement("div");
 
-    // Task cards dark in both themes
+
     box.className = `
         flex
         items-center
         gap-3
+
         p-4
 
-        rounded-xl
+        rounded-2xl
 
-        bg-gray-900
-        text-white
+        bg-white
+        dark:bg-slate-800
 
-        border-2
-        border-violet-500
+        text-slate-800
+        dark:text-white
+
+        border
+        border-violet-200
+        dark:border-slate-600
 
         shadow-md
+        dark:shadow-black/30
+
+        transition-all
+        duration-300
+
+        hover:-translate-y-1
     `;
 
 
@@ -190,68 +243,104 @@ function createTask(task) {
         <!-- CHECK BUTTON -->
 
         <button
+
             class="
                 completeBtn
 
-                w-8
-                h-8
+                w-9
+                h-9
 
                 shrink-0
 
                 rounded-full
 
                 border-2
-                border-pink-400
+                border-violet-500
 
                 flex
                 items-center
                 justify-center
 
-                hover:bg-pink-500
+                text-white
+
+                ${
+                    task.completed
+                    ? "bg-violet-600"
+                    : "bg-transparent dark:bg-slate-700"
+                }
+
+                hover:bg-violet-500
 
                 transition
+
+                duration-200
             "
+
+            title="Complete task"
         >
 
             ${
                 task.completed
-                ? '<i class="fa-solid fa-check text-white"></i>'
+                ? '<i class="fa-solid fa-check"></i>'
                 : ''
             }
 
         </button>
 
 
+
         <!-- TASK TEXT -->
 
         <span
+
             class="
                 taskText
+
                 flex-1
+
                 break-words
+
+                font-medium
+
+                text-slate-800
+                dark:text-white
             "
         >
+
             ${escapeHTML(task.text)}
+
         </span>
 
 
-        <!-- EDIT -->
+
+        <!-- EDIT BUTTON -->
 
         <button
+
             class="
                 editBtn
 
                 w-9
                 h-9
 
+                shrink-0
+
                 rounded-lg
 
-                text-gray-300
+                flex
+                items-center
+                justify-center
 
-                hover:bg-violet-700
+                text-violet-600
+                dark:text-violet-300
+
+                hover:bg-violet-100
+                dark:hover:bg-violet-900/60
 
                 transition
             "
+
+            title="Edit task"
         >
 
             <i class="fa-solid fa-pen"></i>
@@ -259,23 +348,34 @@ function createTask(task) {
         </button>
 
 
-        <!-- DELETE -->
+
+        <!-- DELETE BUTTON -->
 
         <button
+
             class="
                 deleteBtn
 
                 w-9
                 h-9
 
+                shrink-0
+
                 rounded-lg
 
-                text-gray-300
+                flex
+                items-center
+                justify-center
 
-                hover:bg-red-600
+                text-red-500
+
+                hover:bg-red-100
+                dark:hover:bg-red-900/40
 
                 transition
             "
+
+            title="Delete task"
         >
 
             <i class="fa-solid fa-trash"></i>
@@ -285,7 +385,9 @@ function createTask(task) {
     `;
 
 
-    // Completed task
+    // ===============================
+    // COMPLETED TASK STYLE
+    // ===============================
 
     if (task.completed) {
 
@@ -299,40 +401,56 @@ function createTask(task) {
     }
 
 
-    // Complete
+    // ===============================
+    // COMPLETE BUTTON
+    // ===============================
 
     box
         .querySelector(".completeBtn")
-        .addEventListener("click", function() {
+        .addEventListener(
+            "click",
+            function() {
 
-            completeTask(task.id);
+                completeTask(task.id);
 
-        });
+            }
+        );
 
 
-    // Edit
+    // ===============================
+    // EDIT BUTTON
+    // ===============================
 
     box
         .querySelector(".editBtn")
-        .addEventListener("click", function() {
+        .addEventListener(
+            "click",
+            function() {
 
-            editTask(task.id);
+                editTask(task.id);
 
-        });
+            }
+        );
 
 
-    // Delete
+    // ===============================
+    // DELETE BUTTON
+    // ===============================
 
     box
         .querySelector(".deleteBtn")
-        .addEventListener("click", function() {
+        .addEventListener(
+            "click",
+            function() {
 
-            deleteTask(task.id);
+                deleteTask(task.id);
 
-        });
+            }
+        );
 
 
     taskList.appendChild(box);
+
 }
 
 
@@ -344,10 +462,11 @@ function renderTasks() {
 
     taskList.innerHTML = "";
 
+
     const search =
         searchInput.value
-        .toLowerCase()
-        .trim();
+            .toLowerCase()
+            .trim();
 
 
     const filteredTasks =
@@ -364,20 +483,26 @@ function renderTasks() {
 
         emptyState.classList.remove("hidden");
 
-    } else {
+    }
+
+    else {
 
         emptyState.classList.add("hidden");
 
-        filteredTasks.forEach(function(task) {
 
-            createTask(task);
+        filteredTasks.forEach(
+            function(task) {
 
-        });
+                createTask(task);
+
+            }
+        );
 
     }
 
 
     updateProgress();
+
 }
 
 
@@ -398,7 +523,9 @@ function updateProgress() {
         }).length;
 
 
-    // No tasks
+    // ===============================
+    // NO TASKS
+    // ===============================
 
     if (totalTasks === 0) {
 
@@ -409,6 +536,7 @@ function updateProgress() {
         progressText.textContent =
             "0 tasks completed";
 
+
         progressCircle.style.background =
             `
             conic-gradient(
@@ -418,10 +546,13 @@ function updateProgress() {
             `;
 
         return;
+
     }
 
 
-    // Progress according to completed tasks
+    // ===============================
+    // CALCULATE PERCENTAGE
+    // ===============================
 
     const percentage =
         Math.round(
@@ -429,19 +560,25 @@ function updateProgress() {
         );
 
 
-    // Progress bar
+    // ===============================
+    // PROGRESS BAR
+    // ===============================
 
     progressBar.style.width =
         percentage + "%";
 
 
-    // Percentage
+    // ===============================
+    // PERCENTAGE
+    // ===============================
 
     percent.textContent =
         percentage + "%";
 
 
-    // Progress text
+    // ===============================
+    // PROGRESS TEXT
+    // ===============================
 
     progressText.textContent =
         completedTasks +
@@ -450,10 +587,24 @@ function updateProgress() {
         " tasks completed";
 
 
-    // Circle
+    // ===============================
+    // PROGRESS CIRCLE
+    // ===============================
 
     const degree =
         percentage * 3.6;
+
+
+    const isDark =
+        document.documentElement.classList.contains(
+            "dark"
+        );
+
+
+    const emptyColor =
+        isDark
+        ? "#334155"
+        : "#ddd6fe";
 
 
     progressCircle.style.background =
@@ -461,9 +612,10 @@ function updateProgress() {
         conic-gradient(
             #ec4899 0deg,
             #8b5cf6 ${degree}deg,
-            #ddd6fe ${degree}deg
+            ${emptyColor} ${degree}deg
         )
         `;
+
 }
 
 
@@ -521,24 +673,20 @@ taskInput.addEventListener(
 
 function darkTheme() {
 
-    document.body.className = `
-        min-h-screen
+    // Add dark class to HTML
 
-        bg-gradient-to-br
-        from-purple-900
-        via-violet-900
-        to-fuchsia-900
+    document.documentElement.classList.add(
+        "dark"
+    );
 
-        text-white
 
-        transition-colors
-        duration-300
-    `;
-
+    // Theme icon
 
     themeIcon.className =
         "fa-solid fa-sun text-yellow-300";
 
+
+    // Circle center
 
     circleInner.className = `
         w-16
@@ -546,7 +694,7 @@ function darkTheme() {
 
         rounded-full
 
-        bg-purple-950
+        bg-slate-900
 
         text-white
 
@@ -556,65 +704,17 @@ function darkTheme() {
     `;
 
 
-    // Borders light in dark theme
-
-    document
-        .querySelectorAll("section, input")
-        .forEach(function(element) {
-
-            element.classList.remove(
-                "border-gray-700"
-            );
-
-            element.classList.add(
-                "border-white/30"
-            );
-
-        });
-
-
-    // Text back to white
-
-    document
-        .querySelectorAll(
-            "section h1, section h2, section h3, section p"
-        )
-        .forEach(function(element) {
-
-            element.classList.remove(
-                "text-gray-900"
-            );
-
-            element.classList.add(
-                "text-white"
-            );
-
-        });
-
-
-    // Input text
-
-    document
-        .querySelectorAll("input")
-        .forEach(function(input) {
-
-            input.classList.remove(
-                "text-gray-900",
-                "placeholder-gray-500"
-            );
-
-            input.classList.add(
-                "text-white",
-                "placeholder-white/60"
-            );
-
-        });
-
+    // Save theme
 
     localStorage.setItem(
         "todoTheme",
         "dark"
     );
+
+
+    // Update circle
+
+    updateProgress();
 
 }
 
@@ -625,24 +725,20 @@ function darkTheme() {
 
 function lightTheme() {
 
-    document.body.className = `
-        min-h-screen
+    // Remove dark class
 
-        bg-gradient-to-br
-        from-pink-100
-        via-white
-        to-violet-100
+    document.documentElement.classList.remove(
+        "dark"
+    );
 
-        text-gray-900
 
-        transition-colors
-        duration-300
-    `;
-
+    // Theme icon
 
     themeIcon.className =
         "fa-solid fa-moon text-violet-700";
 
+
+    // Circle center
 
     circleInner.className = `
         w-16
@@ -650,9 +746,9 @@ function lightTheme() {
 
         rounded-full
 
-        bg-gray-900
+        bg-white
 
-        text-white
+        text-violet-700
 
         flex
         items-center
@@ -660,71 +756,17 @@ function lightTheme() {
     `;
 
 
-    // =================================
-    // DARK BORDERS IN LIGHT THEME
-    // =================================
-
-    document
-        .querySelectorAll("section, input")
-        .forEach(function(element) {
-
-            element.classList.remove(
-                "border-white/30"
-            );
-
-            element.classList.add(
-                "border-gray-700"
-            );
-
-        });
-
-
-    // =================================
-    // DARK TEXT IN LIGHT THEME
-    // =================================
-
-    document
-        .querySelectorAll(
-            "section h1, section h2, section h3, section p"
-        )
-        .forEach(function(element) {
-
-            element.classList.remove(
-                "text-white"
-            );
-
-            element.classList.add(
-                "text-gray-900"
-            );
-
-        });
-
-
-    // =================================
-    // INPUT TEXT DARK
-    // =================================
-
-    document
-        .querySelectorAll("input")
-        .forEach(function(input) {
-
-            input.classList.remove(
-                "text-white",
-                "placeholder-white/60"
-            );
-
-            input.classList.add(
-                "text-gray-900",
-                "placeholder-gray-500"
-            );
-
-        });
-
+    // Save theme
 
     localStorage.setItem(
         "todoTheme",
         "light"
     );
+
+
+    // Update circle
+
+    updateProgress();
 
 }
 
@@ -738,14 +780,18 @@ themeBtn.addEventListener(
     function() {
 
         const currentTheme =
-            localStorage.getItem("todoTheme");
+            localStorage.getItem(
+                "todoTheme"
+            );
 
 
         if (currentTheme === "dark") {
 
             lightTheme();
 
-        } else {
+        }
+
+        else {
 
             darkTheme();
 
@@ -760,14 +806,18 @@ themeBtn.addEventListener(
 // ===============================
 
 const savedTheme =
-    localStorage.getItem("todoTheme");
+    localStorage.getItem(
+        "todoTheme"
+    );
 
 
 if (savedTheme === "light") {
 
     lightTheme();
 
-} else {
+}
+
+else {
 
     darkTheme();
 
@@ -783,9 +833,12 @@ function escapeHTML(text) {
     const div =
         document.createElement("div");
 
+
     div.textContent = text;
 
+
     return div.innerHTML;
+
 }
 
 

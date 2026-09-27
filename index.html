@@ -22,56 +22,128 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            transition: background 0.4s ease, color 0.3s ease;
+        }
+
+        /* Light background */
+
+        body {
+            background:
+                radial-gradient(circle at top left, #e9d5ff 0%, transparent 35%),
+                radial-gradient(circle at bottom right, #ddd6fe 0%, transparent 35%),
+                linear-gradient(135deg, #f8fafc, #ede9fe);
+        }
+
+        /* Dark background */
+
+        html.dark body {
+            background:
+                radial-gradient(circle at top left, #312e81 0%, transparent 30%),
+                radial-gradient(circle at bottom right, #581c87 0%, transparent 35%),
+                linear-gradient(135deg, #0f172a, #17112b);
+        }
+
+        /* Task cards created by JS */
+
+        #taskList > div {
+            background: rgba(255, 255, 255, 0.95) !important;
+            color: #172033 !important;
+            border: 1px solid #d8b4fe !important;
+            border-radius: 18px !important;
+            box-shadow: 0 8px 25px rgba(91, 33, 182, 0.10);
+            transition: 0.3s ease;
+        }
+
+        #taskList > div:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(91, 33, 182, 0.16);
+        }
+
+        html.dark #taskList > div {
+            background: #1e293b !important;
+            color: #f8fafc !important;
+            border-color: #475569 !important;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Better readability for generated text */
+
+        html.dark #taskList p,
+        html.dark #taskList span,
+        html.dark #taskList h3 {
+            color: #f8fafc !important;
+        }
+
+        /* Scrollbar */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #8b5cf6;
+            border-radius: 20px;
+        }
+
+        html.dark ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #a78bfa;
+        }
+
+    </style>
+
 </head>
 
 
-<body
-    class="
-        min-h-screen
-
-        bg-gradient-to-br
-        from-purple-900
-        via-violet-900
-        to-fuchsia-900
-
-        text-white
-
-        transition-colors
-        duration-300
-    "
->
+<body class="min-h-screen text-slate-800 dark:text-white transition-all duration-300">
 
 
-    <!-- HEADER -->
+    <!-- =========================
+         HEADER
+    ========================== -->
 
     <header class="px-5 py-6">
 
         <div
             class="
-                max-w-5xl
+                max-w-4xl
                 mx-auto
-
                 flex
                 items-center
                 justify-between
             "
         >
 
+            <!-- Logo -->
+
             <div class="flex items-center gap-3">
 
                 <div
                     class="
-                        w-10
-                        h-10
-
+                        w-11
+                        h-11
                         rounded-full
-
-                        bg-white
-                        text-violet-600
-
+                        bg-violet-600
+                        dark:bg-violet-500
+                        text-white
                         flex
                         items-center
                         justify-center
+                        shadow-lg
                     "
                 >
 
@@ -80,11 +152,11 @@
                 </div>
 
 
-                <h1 class="text-2xl sm:text-3xl font-bold">
+                <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
 
                     ToDo
 
-                    <span class="text-pink-300">
+                    <span class="text-violet-600 dark:text-violet-300">
                         App
                     </span>
 
@@ -98,31 +170,37 @@
             <button
                 id="themeBtn"
                 type="button"
-
                 class="
                     w-11
                     h-11
-
                     rounded-full
 
-                    bg-white/10
+                    bg-white
+                    dark:bg-slate-800
 
                     border-2
-                    border-white/40
+                    border-violet-300
+                    dark:border-violet-400
+
+                    text-violet-700
+                    dark:text-yellow-300
 
                     flex
                     items-center
                     justify-center
 
-                    hover:bg-white/20
+                    shadow-md
+
+                    hover:scale-105
 
                     transition
+                    duration-300
                 "
             >
 
                 <i
                     id="themeIcon"
-                    class="fa-solid fa-sun text-yellow-300"
+                    class="fa-solid fa-sun text-yellow-500"
                 ></i>
 
             </button>
@@ -133,32 +211,42 @@
 
 
 
-    <!-- MAIN -->
+    <!-- =========================
+         MAIN
+    ========================== -->
 
     <main
         class="
             max-w-3xl
             mx-auto
-
             px-4
-            pb-10
+            pb-12
         "
     >
 
 
-        <!-- PROGRESS CARD -->
+        <!-- =========================
+             PROGRESS CARD
+        ========================== -->
 
         <section
             class="
-                rounded-2xl
-
+                rounded-3xl
                 p-5
                 sm:p-7
 
-                bg-white/10
+                bg-white
+                dark:bg-slate-800
 
-                border-2
-                border-white/30
+                border
+                border-violet-200
+                dark:border-slate-700
+
+                shadow-xl
+                dark:shadow-black/30
+
+                transition-all
+                duration-300
             "
         >
 
@@ -183,15 +271,19 @@
 
                         rounded-2xl
 
-                        bg-white/10
+                        bg-violet-100
+                        dark:bg-violet-900/60
 
                         border
-                        border-white/30
+                        border-violet-200
+                        dark:border-violet-700
 
                         items-center
                         justify-center
 
                         text-5xl
+
+                        shadow-inner
                     "
                 >
 
@@ -200,6 +292,8 @@
                 </div>
 
 
+
+                <!-- CONTENT -->
 
                 <div class="flex-1">
 
@@ -220,12 +314,22 @@
                                     text-2xl
                                     sm:text-3xl
                                     font-bold
+
+                                    text-slate-900
+                                    dark:text-white
                                 "
                             >
                                 ToDo App
                             </h2>
 
-                            <p class="mt-1 opacity-80">
+
+                            <p
+                                class="
+                                    mt-1
+                                    text-slate-500
+                                    dark:text-slate-300
+                                "
+                            >
                                 Keep it up! 🚀
                             </p>
 
@@ -233,7 +337,7 @@
 
 
 
-                        <!-- CIRCLE -->
+                        <!-- PROGRESS CIRCLE -->
 
                         <div
                             id="progressCircle"
@@ -250,7 +354,10 @@
                                 items-center
                                 justify-center
 
-                                bg-violet-500
+                                bg-violet-600
+                                dark:bg-violet-500
+
+                                shadow-lg
                             "
                         >
 
@@ -263,7 +370,11 @@
 
                                     rounded-full
 
-                                    bg-purple-900
+                                    bg-white
+                                    dark:bg-slate-900
+
+                                    text-violet-700
+                                    dark:text-violet-200
 
                                     flex
                                     items-center
@@ -296,10 +407,12 @@
 
                                 rounded-full
 
-                                bg-white/20
+                                bg-slate-200
+                                dark:bg-slate-700
 
                                 border
-                                border-white/30
+                                border-slate-300
+                                dark:border-slate-600
 
                                 overflow-hidden
                             "
@@ -315,8 +428,8 @@
                                     rounded-full
 
                                     bg-gradient-to-r
-                                    from-pink-400
-                                    to-violet-400
+                                    from-violet-600
+                                    to-fuchsia-500
 
                                     transition-all
                                     duration-500
@@ -328,7 +441,14 @@
 
                         <p
                             id="progressText"
-                            class="mt-2 text-sm opacity-80"
+
+                            class="
+                                mt-2
+                                text-sm
+
+                                text-slate-500
+                                dark:text-slate-300
+                            "
                         >
                             0 tasks added
                         </p>
@@ -343,20 +463,26 @@
 
 
 
-        <!-- ADD TASK -->
+        <!-- =========================
+             ADD TASK
+        ========================== -->
 
         <section
             class="
                 mt-5
-
                 p-3
 
                 rounded-2xl
 
-                bg-white/10
+                bg-white
+                dark:bg-slate-800
 
-                border-2
-                border-white/30
+                border
+                border-violet-200
+                dark:border-slate-700
+
+                shadow-lg
+                dark:shadow-black/20
             "
         >
 
@@ -379,18 +505,29 @@
 
                         rounded-xl
 
-                        bg-white/10
+                        bg-slate-50
+                        dark:bg-slate-900
 
-                        border-2
-                        border-white/30
+                        border
+                        border-slate-300
+                        dark:border-slate-600
 
-                        text-white
+                        text-slate-900
+                        dark:text-white
 
-                        placeholder-white/60
+                        placeholder-slate-400
+                        dark:placeholder-slate-400
 
                         outline-none
 
-                        focus:border-pink-300
+                        focus:border-violet-500
+                        dark:focus:border-violet-400
+
+                        focus:ring-2
+                        focus:ring-violet-200
+                        dark:focus:ring-violet-900
+
+                        transition
                     "
                 >
 
@@ -406,13 +543,17 @@
                         rounded-xl
 
                         bg-gradient-to-r
-                        from-pink-400
-                        to-violet-500
+                        from-violet-600
+                        to-fuchsia-500
 
                         text-white
                         text-xl
 
-                        hover:opacity-90
+                        shadow-md
+
+                        hover:scale-105
+
+                        transition
                     "
                 >
 
@@ -426,58 +567,97 @@
 
 
 
-        <!-- SEARCH -->
+        <!-- =========================
+             SEARCH
+        ========================== -->
 
         <section
             class="
                 mt-4
-
                 p-3
 
                 rounded-2xl
 
-                bg-white/10
+                bg-white
+                dark:bg-slate-800
 
-                border-2
-                border-white/30
+                border
+                border-violet-200
+                dark:border-slate-700
+
+                shadow-lg
+                dark:shadow-black/20
             "
         >
 
-            <input
-                id="searchInput"
+            <div class="relative">
 
-                type="text"
+                <i
+                    class="
+                        fa-solid
+                        fa-magnifying-glass
 
-                placeholder="Search tasks..."
+                        absolute
+                        left-4
+                        top-1/2
+                        -translate-y-1/2
 
-                class="
-                    w-full
+                        text-slate-400
+                        dark:text-slate-500
+                    "
+                ></i>
 
-                    px-4
-                    py-3
 
-                    rounded-xl
+                <input
+                    id="searchInput"
 
-                    bg-white/10
+                    type="text"
 
-                    border-2
-                    border-white/30
+                    placeholder="Search tasks..."
 
-                    text-white
+                    class="
+                        w-full
 
-                    placeholder-white/60
+                        px-11
+                        py-3
 
-                    outline-none
+                        rounded-xl
 
-                    focus:border-pink-300
-                "
-            >
+                        bg-slate-50
+                        dark:bg-slate-900
+
+                        border
+                        border-slate-300
+                        dark:border-slate-600
+
+                        text-slate-900
+                        dark:text-white
+
+                        placeholder-slate-400
+                        dark:placeholder-slate-400
+
+                        outline-none
+
+                        focus:border-violet-500
+                        dark:focus:border-violet-400
+
+                        focus:ring-2
+                        focus:ring-violet-200
+                        dark:focus:ring-violet-900
+
+                        transition
+                    "
+                >
+
+            </div>
 
         </section>
 
 
 
-        <!-- TASKS -->
+        <!-- =========================
+             TASK LIST
+        ========================== -->
 
         <div
             id="taskList"
@@ -486,7 +666,9 @@
 
 
 
-        <!-- EMPTY -->
+        <!-- =========================
+             EMPTY STATE
+        ========================== -->
 
         <div
             id="emptyState"
@@ -498,26 +680,50 @@
 
                 rounded-2xl
 
-                bg-gray-900
+                bg-white
+                dark:bg-slate-800
 
-                border-2
-                border-violet-400
+                border
+                border-violet-200
+                dark:border-slate-700
+
+                shadow-xl
 
                 text-center
-
-                text-white
             "
         >
 
-            <div class="text-4xl mb-3">
+            <div
+                class="
+                    text-5xl
+                    mb-4
+                "
+            >
                 📝
             </div>
 
-            <h3 class="text-xl font-bold">
+
+            <h3
+                class="
+                    text-xl
+                    font-bold
+
+                    text-slate-900
+                    dark:text-white
+                "
+            >
                 No tasks yet ✨
             </h3>
 
-            <p class="mt-2 text-gray-300">
+
+            <p
+                class="
+                    mt-2
+
+                    text-slate-500
+                    dark:text-slate-300
+                "
+            >
                 Add your first task and get started!
             </p>
 
@@ -530,7 +736,12 @@
 
     <!-- JS -->
 
-   <script type="module" src="/src/main.js"></script>
+    <script
+        type="module"
+        src="/src/main.js"
+    ></script>
+
+
 </body>
 
 </html>
